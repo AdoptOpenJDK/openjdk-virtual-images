@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 package "mercurial" do
-        action :install
+        action [:install]
 end
-
+package "git" do
+	action [:install]
+end
