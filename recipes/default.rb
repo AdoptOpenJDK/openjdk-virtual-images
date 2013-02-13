@@ -15,26 +15,32 @@ directory node[:openjdk][:dir] do
 	mode "0755"
 	action :create
 end
-directory node[:openjdk][:dir][:hgforest] do
+directory node[:openjdk][:forest] do
 	owner "root"
 	mode "0755"
 	action :create
 end
-directory node[:openjdk][:dir][:source] do
+directory node[:openjdk][:source] do
 	owner "root"
 	mode "0755"
 	action :create
 end
 
-mercurial node[:openjdk][:dir][:hgforest]  do
-  repository "https://bitbucket.org/pmezard/hgforest-crew/overview/"
-  mode "0755"
-  action :sync
+mercurial node[:openjdk][:forest]  do
+	repository node[:openjdk][:forest_url]
+	mode "0755"
+	action :sync
+end
+mercurial node[:openjdk][:source] do 
+	repository node[:openjdk][:source_url]
+	mode "0755"
+	action :sync	
 end
 
 file "/home/vagrant/.hgrc" do 
 	content <<-EOS
-forest = #{node[:openjdk][:dir][:hgforest]}forest.py
+forest = #{node[:openjdk][:forest]}forest.py
 	EOS
 	mode 0755
 end
+
