@@ -1,4 +1,16 @@
-OpenJdk
-=======
+Description
+===========
+OpenJdk cookbook is intended to assist building OpenJdk from source code.
 
-Cookbook to build OpenJDK from source code
+Requirements
+============
+work in progress
+
+Attributes
+==========
+work in progress
+
+Usage
+=====
+work in progress
+
