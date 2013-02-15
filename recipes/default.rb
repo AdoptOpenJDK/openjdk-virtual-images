@@ -16,13 +16,13 @@ directory node[:openjdk][:dir] do
 	action :create
 end
 directory node[:openjdk][:forest] do
-	owner "root"
+	#owner "root"
 	mode "0755"
 	action :create
 end
 directory node[:openjdk][:source] do
-	owner "root"
-	mode "0755"
+	owner "vagrant"
+	mode "0777"
 	action :create
 end
 
@@ -44,3 +44,8 @@ forest = #{node[:openjdk][:forest]}forest.py
 	mode 0755
 end
 
+execute "get source" do
+	user "root"        
+	cwd node[:openjdk][:source]
+	command "sh #{node[:openjdk][:get_source]}"
+end
