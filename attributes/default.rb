@@ -1,0 +1,7 @@
+default[:openjdk][:dir] = "/home/vagrant/openjdk/"
+default[:openjdk][:dir][:forest] = "/home/vagrant/opst/"
+default[:openjdk][:forest] = "#{node[:openjdk][:dir]}hgforest/"
+default[:openjdk][:source] = "#{node[:openjdk][:dir]}source/"
+default[:openjdk][:source_url] = "http://hg.openjdk.java.net/jdk8/tl"
+default[:openjdk][:forest_url] = "https://bitbucket.org/pmezard/hgforest-crew/overview/"
+default[:openjdk][:get_source] = "#{node[:openjdk][:source]}get_source.sh"
