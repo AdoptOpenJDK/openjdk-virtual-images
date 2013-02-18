@@ -1,5 +1,6 @@
 # Cookbook Name:: Openjdk
 # Recipe:: default
+# work in progress
 #
 # Copyright 2013, YOUR_COMPANY_NAME
 #
@@ -34,7 +35,11 @@ end
 package "g++-4.6-multilib" do
         action [:install]
 end
-#loop to install packages 
+#loop to install packages ends
+
+package "git" do
+	action [:install]
+end
 
 directory node[:openjdk][:dir] do
 	owner "root"
