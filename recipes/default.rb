@@ -1,6 +1,5 @@
 # Cookbook Name:: Openjdk
 # Recipe:: default
-# work in progress
 #
 # Copyright 2013, YOUR_COMPANY_NAME
 #
@@ -8,38 +7,42 @@
 #
 
 # this installing packge blog will and should go in loop... need to do, after POC
-package "git" do
-	action [:install]
-end
-package "libx11-dev" do
-	action [:install]
-end
-package "libxrender-dev" do
-	action [:install]
-end
-package "libxtst-dev" do
-        action [:install]
-end
-package "libfreetype6-dev" do
-        action [:install]
-end
-package "libcups2-dev" do
-        action [:install]
-end
-package "libasound2-dev" do
-        action [:install]
-end
-package "ccache" do
-        action [:install]
-end
-package "g++-4.6-multilib" do
-        action [:install]
-end
-#loop to install packages ends
+package = %w{libX11-dev libxext-dev libxrender-dev libxtst-dev libfreetype6-dev libcups2-dev libasound2-dev ccache g++-4.6-multilib}
 
-package "git" do
-	action [:install]
+package.each do |pkg|
+	r = package pkg do
+		action [:install]
+	end
 end
+ 
+#package "git" do
+#	action [:install]
+#end
+#package "libx11-dev" do
+#	action [:install]
+#end
+#package "libxrender-dev" do
+#	action [:install]
+#end
+#package "libxtst-dev" do
+#        action [:install]
+#end
+#package "libfreetype6-dev" do
+#        action [:install]
+#end
+#package "libcups2-dev" do
+#        action [:install]
+#end
+#package "libasound2-dev" do
+#        action [:install]
+#end
+#package "ccache" do
+#        action [:install]
+#end
+#package "g++-4.6-multilib" do
+#        action [:install]
+#end
+#loop to install packages 
 
 directory node[:openjdk][:dir] do
 	owner "root"
