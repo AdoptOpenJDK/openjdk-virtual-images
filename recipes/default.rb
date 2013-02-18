@@ -6,9 +6,35 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# this installing packge blog will and should go in loop... need to do, after POC
 package "git" do
 	action [:install]
 end
+package "libx11-dev" do
+	action [:install]
+end
+package "libxrender-dev" do
+	action [:install]
+end
+package "libxtst-dev" do
+        action [:install]
+end
+package "libfreetype6-dev" do
+        action [:install]
+end
+package "libcups2-dev" do
+        action [:install]
+end
+package "libasound2-dev" do
+        action [:install]
+end
+package "ccache" do
+        action [:install]
+end
+package "g++-4.6-multilib" do
+        action [:install]
+end
+#loop to install packages 
 
 directory node[:openjdk][:dir] do
 	owner "root"
