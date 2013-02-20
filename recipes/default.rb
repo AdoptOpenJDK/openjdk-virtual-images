@@ -85,29 +85,46 @@ forest = #{node[:openjdk][:forest]}forest.py
 	mode "0755"
 end
 
-execute "get_source" do
-	user "root"        
-	cwd node[:openjdk][:source]
-	command "sh #{node[:openjdk][:get_source]}"
-end
+execute "build_and_configure_openjdk" do
+        user "root"
 
-execute "auto_configure" do
-	user "root"
+# get openjdk source
 	cwd node[:openjdk][:source]
+        command "sh #{node[:openjdk][:get_source]}"
+# configure node for openjdk
 	command "bash configure"
-end
-
-execute "configure_jtreg" do
-	user "root"
+# configure jtreg
 	cwd node[:openjdk][:jtreg][:dir]
-	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+# make openjdk image
+	cwd node[:openjdk][:source]
+        command "make clean images"
+
 end
 
-execute "build_openjdk_images" do 
-	user "root"
-	cwd node[:openjdk][:source]
-	command "make clean images"
-end
+#execute "get_source" do
+#	user "root"        
+#	cwd node[:openjdk][:source]
+#	command "sh #{node[:openjdk][:get_source]}"
+#end
+
+#execute "auto_configure" do
+#	user "root"
+#	cwd node[:openjdk][:source]
+#	command "bash configure"
+#end
+
+#execute "configure_jtreg" do
+#	user "root"
+#	cwd node[:openjdk][:jtreg][:dir]
+#	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+#end
+
+#execute "build_openjdk_images" do 
+#	user "root"
+#	cwd node[:openjdk][:source]
+#	command "make clean images"
+#end
 
 file node[:openjdk][:export_path] do
   content <<-EOS
