@@ -24,8 +24,8 @@ package.each do |pkg|
 	end
 end
 
+# code to create openjdk directory TODO
 #openjdk_dirs = %w{#node[:openjdk][:dir] #node[:openjdk][:forest] #node[:openjdk][:source] #node[:openjdk][:jtreg][:dir]}
-
 #openjdk_dirs.each do |dir|
 #	directory dir do
 #	mode "0777"
@@ -36,32 +36,32 @@ end
 #end
 
 directory node[:openjdk][:dir] do
-	owner "root"
+	owner node[:owner]
 	mode "0755"
 	action :create
 end
 directory node[:openjdk][:forest] do
-	owner "root"
+	owner node[:owner]
 	mode "0755"
 	action :create
 end
 
 directory node[:openjdk][:source] do
-	owner "root"
-	mode "0777"
+	owner node[:owner]
+	mode "0755"
 	action :create
 end
 
 directory node[:openjdk][:jtreg][:dir] do
-        owner "root"
-        mode "0777"
+        owner node[:owner]
+        mode "0755"
         action :create
 end
 
 remote_file node[:openjdk][:jtreg][:file] do
 	source node[:openjdk][:jtreg][:url]
 	checksum node[:openjdk][:jtreg][:checksum]
-	mode "0777"
+	mode "0755"
 	action :create_if_missing
 end
 
@@ -85,46 +85,47 @@ forest = #{node[:openjdk][:forest]}forest.py
 	mode "0755"
 end
 
-execute "build_and_configure_openjdk" do
-        user "root"
-
-# get openjdk source
-	cwd node[:openjdk][:source]
-        command "sh #{node[:openjdk][:get_source]}"
-# configure node for openjdk
-	command "bash configure"
-# configure jtreg
-	cwd node[:openjdk][:jtreg][:dir]
-        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
-# make openjdk image
-	cwd node[:openjdk][:source]
-        command "make clean images"
-
-end
-
-#execute "get_source" do
-#	user "root"        
+# code to run all commands in one block TODO
+#execute "build_and_configure_openjdk" do
+#       user node[:owner]
+## get openjdk source
 #	cwd node[:openjdk][:source]
-#	command "sh #{node[:openjdk][:get_source]}"
-#end
-
-#execute "auto_configure" do
-#	user "root"
+#       command "sh #{node[:openjdk][:get_source]}"
+## configure node for openjdk 
 #	cwd node[:openjdk][:source]
 #	command "bash configure"
-#end
-
-#execute "configure_jtreg" do
-#	user "root"
+## configure jtreg
 #	cwd node[:openjdk][:jtreg][:dir]
-#	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+#        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+## make openjdk image
+#	cwd node[:openjdk][:source]
+#        command "make clean images"
+
 #end
 
-#execute "build_openjdk_images" do 
-#	user "root"
-#	cwd node[:openjdk][:source]
-#	command "make clean images"
-#end
+execute "get_source" do
+	user node[:owner]
+	cwd node[:openjdk][:source]
+	command "sh #{node[:openjdk][:get_source]}"
+end
+
+execute "auto_configure" do
+	user node[:owner]
+	cwd node[:openjdk][:source]
+	command "bash configure"
+end
+
+execute "configure_jtreg" do
+	user node[:owner]
+	cwd node[:openjdk][:jtreg][:dir]
+	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+end
+
+execute "build_openjdk_images" do 
+	user node[:owner]
+	cwd node[:openjdk][:source]
+	command "make clean images"
+end
 
 file node[:openjdk][:export_path] do
   content <<-EOS

@@ -15,7 +15,9 @@
 # limitations under the License.
 #
 # constants for building OpenJdk.
-default[:openjdk][:home] = "/home/vagrant/"
+default[:user] = "vagrant" # TODO get the home dir
+default[:owner] = "root"
+default[:openjdk][:home] = "/home/#{node[:user]}/"
 default[:openjdk][:dir] = "#{node[:openjdk][:home]}openjdk/"
 default[:openjdk][:forest] = "#{node[:openjdk][:dir]}hgforest/"
 default[:openjdk][:source] = "#{node[:openjdk][:dir]}source/"
