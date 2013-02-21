@@ -37,24 +37,24 @@ end
 
 directory node[:openjdk][:dir] do
 	owner node[:owner]
-	mode "0755"
+	mode "0776"
 	action :create
 end
 directory node[:openjdk][:forest] do
 	owner node[:owner]
-	mode "0755"
+	mode "0766"
 	action :create
 end
 
 directory node[:openjdk][:source] do
 	owner node[:owner]
-	mode "0755"
+	mode "0766"
 	action :create
 end
 
 directory node[:openjdk][:jtreg][:dir] do
         owner node[:owner]
-        mode "0755"
+        mode "0766"
         action :create
 end
 
