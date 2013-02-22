@@ -65,7 +65,7 @@ remote_file node[:openjdk][:jtreg][:file] do
 	action :create_if_missing
 end
 
-# Not necessary anymore as part of OpenJDK build - see Wiki
+# Not necessary anymore as part of OpenJDK build
 #mercurial node[:openjdk][:forest]  do
 #	repository node[:openjdk][:forest_url]
 #	mode "0755"
@@ -78,7 +78,7 @@ mercurial node[:openjdk][:source] do
 	action :sync	
 end
 
-# Not necessary anymore as part of OpenJDK build - see Wiki
+# Not necessary anymore as part of OpenJDK build
 #file node[:openjdk][:hgrc] do 
 #	content <<-EOS
 #forest = #{node[:openjdk][:forest]}forest.py
