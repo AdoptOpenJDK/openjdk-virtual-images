@@ -27,9 +27,9 @@ default[:openjdk][:hgrc] = "#{node[:openjdk][:home]}.hgrc"
 default[:openjdk][:get_source] = "#{node[:openjdk][:source]}get_source.sh"
 
 #download and configre jtreg
-default[:openjdk][:jtreg][:dir] = "#{node[:openjdk][:dir]}jtreg/"
-default[:openjdk][:jtreg][:file] = "#{node[:openjdk][:jtreg][:dir]}jtreg-4.1.zip" 
+default[:openjdk][:jtreg][:dir] = "#{node[:openjdk][:dir]}jtreg"
+default[:openjdk][:jtreg][:file] = "#{node[:openjdk][:dir]}jtreg-4.1.zip" 
 default[:openjdk][:jtreg][:url] = "http://www.java.net/download/openjdk/jtreg/promoted/4.1/b05/jtreg-4.1-bin-b05_29_nov_2012.zip"
 default[:openjdk][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
-default[:openjdk][:product_home] = "#{node[:openjdk][:source]}build/linux-x64-normal-server-release/images/j2sdk-image/"
+default[:openjdk][:product_home] = "#{node[:openjdk][:source]}build/linux-x86_64-normal-server-release/images/j2sdk-image/"
 default[:openjdk][:export_path] = "/etc/profile.d/openjdk_build_path.sh"

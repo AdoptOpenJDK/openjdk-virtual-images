@@ -37,24 +37,24 @@ end
 
 directory node[:openjdk][:dir] do
 	owner node[:owner]
-	mode "0776"
+	mode "0667"
 	action :create
 end
 directory node[:openjdk][:forest] do
 	owner node[:owner]
-	mode "0766"
+	mode "0667"
 	action :create
 end
 
 directory node[:openjdk][:source] do
 	owner node[:owner]
-	mode "0766"
+	mode "0667"
 	action :create
 end
 
 directory node[:openjdk][:jtreg][:dir] do
         owner node[:owner]
-        mode "0766"
+        mode "0667"
         action :create
 end
 
@@ -117,15 +117,15 @@ end
 
 execute "configure_jtreg" do
 	user node[:owner]
-	cwd node[:openjdk][:jtreg][:dir]
+	cwd node[:openjdk][:dir]
 	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
 end
 
-execute "build_openjdk_images" do 
-	user node[:owner]
-	cwd node[:openjdk][:source]
-	command "make clean images"
-end
+#execute "build_openjdk_images" do 
+#	user node[:owner]
+#	cwd node[:openjdk][:source]
+#	command "make clean images"
+#end
 
 file node[:openjdk][:export_path] do
   content <<-EOS
