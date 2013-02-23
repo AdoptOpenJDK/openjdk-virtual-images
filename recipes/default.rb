@@ -34,7 +34,7 @@ openjdk_dirs = %w{node[:openjdk][:dir]
 openjdk_dirs.each do |dir|
    directory eval("#{dir}") do      
       mode "0557"
-      owner "root"
+      owner node[:owner]
       action :create
    end
 end
@@ -103,7 +103,7 @@ end
 
 #execute "build_openjdk_images" do 
 #	user node[:owner]
-#	cwd node[:openjdk][:source]
+#	cwd node[:openjdk][:source_tl]
 #	command "make clean images"
 #end
 
