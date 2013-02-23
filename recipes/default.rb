@@ -25,37 +25,18 @@ package.each do |pkg|
 end
 
 # code to create openjdk directory TODO
-#openjdk_dirs = %w{#node[:openjdk][:dir] #node[:openjdk][:forest] #node[:openjdk][:source] #node[:openjdk][:jtreg][:dir]}
-#openjdk_dirs.each do |dir|
-#	directory dir do
-#	mode "0777"
-#	owner "root"
-#	action :create
-#	recursive true
-#	end
-#end
+openjdk_dirs = %w{node[:openjdk][:dir]
+		  node[:openjdk][:forest] 
+		  node[:openjdk][:source] 
+		  node[:openjdk][:source_tl]
+		  node[:openjdk][:jtreg][:dir]}
 
-directory node[:openjdk][:dir] do
-	owner node[:owner]
-	mode "0667"
-	action :create
-end
-directory node[:openjdk][:forest] do
-	owner node[:owner]
-	mode "0667"
-	action :create
-end
-
-directory node[:openjdk][:source] do
-	owner node[:owner]
-	mode "0667"
-	action :create
-end
-
-directory node[:openjdk][:jtreg][:dir] do
-        owner node[:owner]
-        mode "0667"
-        action :create
+openjdk_dirs.each do |dir|
+   directory eval("#{dir}") do      
+      mode "0557"
+      owner "root"
+      action :create
+   end
 end
 
 remote_file node[:openjdk][:jtreg][:file] do
@@ -65,14 +46,13 @@ remote_file node[:openjdk][:jtreg][:file] do
 	action :create_if_missing
 end
 
-
 mercurial node[:openjdk][:forest]  do
 	repository node[:openjdk][:forest_url]
 	mode "0755"
 	action :sync
 end
 
-mercurial node[:openjdk][:source] do 
+mercurial node[:openjdk][:source_tl] do 
 	repository node[:openjdk][:source_url]
 	mode "0755"
 	action :sync	
@@ -105,13 +85,13 @@ end
 
 execute "get_source" do
 	user node[:owner]
-	cwd node[:openjdk][:source]
+	cwd node[:openjdk][:source_tl]
 	command "sh #{node[:openjdk][:get_source]}"
 end
 
 execute "auto_configure" do
 	user node[:owner]
-	cwd node[:openjdk][:source]
+	cwd node[:openjdk][:source_tl]
 	command "bash configure"
 end
 
