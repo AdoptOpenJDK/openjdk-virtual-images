@@ -38,79 +38,79 @@ openjdk_dirs.each do |dir|
       action :create
    end
 end
-
-remote_file node[:openjdk][:jtreg][:file] do
-	source node[:openjdk][:jtreg][:url]
-	checksum node[:openjdk][:jtreg][:checksum]
-	mode "0755"
-	action :create_if_missing
-end
-
-mercurial node[:openjdk][:forest]  do
-	repository node[:openjdk][:forest_url]
-	mode "0755"
-	action :sync
-end
-
-mercurial node[:openjdk][:source_tl] do 
-	repository node[:openjdk][:source_url]
-	mode "0755"
-	action :sync	
-end
-
-file node[:openjdk][:hgrc] do 
-	content <<-EOS
-forest = #{node[:openjdk][:forest]}forest.py
-	EOS
-	mode "0755"
-end
-
-# code to run all commands in one block TODO
-#execute "build_and_configure_openjdk" do
-#       user node[:owner]
-## get openjdk source
-#	cwd node[:openjdk][:source]
-#       command "sh #{node[:openjdk][:get_source]}"
-## configure node for openjdk 
-#	cwd node[:openjdk][:source]
-#	command "bash configure"
-## configure jtreg
-#	cwd node[:openjdk][:jtreg][:dir]
-#        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
-## make openjdk image
-#	cwd node[:openjdk][:source]
-#        command "make clean images"
-
+#
+#remote_file node[:openjdk][:jtreg][:file] do
+#	source node[:openjdk][:jtreg][:url]
+#	checksum node[:openjdk][:jtreg][:checksum]
+#	mode "0755"
+#	action :create_if_missing
 #end
-
-execute "get_source" do
-	user node[:owner]
-	cwd node[:openjdk][:source_tl]
-	command "sh #{node[:openjdk][:get_source]}"
-end
-
-execute "auto_configure" do
-	user node[:owner]
-	cwd node[:openjdk][:source_tl]
-	command "bash configure"
-end
-
-execute "configure_jtreg" do
-	user node[:owner]
-	cwd node[:openjdk][:dir]
-	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
-end
-
-#execute "build_openjdk_images" do 
+#
+#mercurial node[:openjdk][:forest]  do
+#	repository node[:openjdk][:forest_url]
+#	mode "0755"
+#	action :sync
+#end
+#
+#mercurial node[:openjdk][:source_tl] do 
+#	repository node[:openjdk][:source_url]
+#	mode "0755"
+#	action :sync	
+#end
+#
+#file node[:openjdk][:hgrc] do 
+#	content <<-EOS
+#forest = #{node[:openjdk][:forest]}forest.py
+#	EOS
+#	mode "0755"
+#end
+#
+## code to run all commands in one block TODO
+##execute "build_and_configure_openjdk" do
+##       user node[:owner]
+### get openjdk source
+##	cwd node[:openjdk][:source]
+##       command "sh #{node[:openjdk][:get_source]}"
+### configure node for openjdk 
+##	cwd node[:openjdk][:source]
+##	command "bash configure"
+### configure jtreg
+##	cwd node[:openjdk][:jtreg][:dir]
+##        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+### make openjdk image
+##	cwd node[:openjdk][:source]
+##        command "make clean images"
+#
+##end
+#
+#execute "get_source" do
 #	user node[:owner]
 #	cwd node[:openjdk][:source_tl]
-#	command "make clean images"
+#	command "sh #{node[:openjdk][:get_source]}"
 #end
-
-file node[:openjdk][:export_path] do
-  content <<-EOS
-    export JT_HOME=#{node[:openjdk][:jtreg][:dir]}
-    export PRODUCT_HOME=#{node[:openjdk][:product_home]}
-  EOS
-  mode 0755
-end
+#
+#execute "auto_configure" do
+#	user node[:owner]
+#	cwd node[:openjdk][:source_tl]
+#	command "bash configure"
+#end
+#
+#execute "configure_jtreg" do
+#	user node[:owner]
+#	cwd node[:openjdk][:dir]
+#	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+#end
+#
+##execute "build_openjdk_images" do 
+##	user node[:owner]
+##	cwd node[:openjdk][:source_tl]
+##	command "make clean images"
+##end
+#
+#file node[:openjdk][:export_path] do
+#  content <<-EOS
+#    export JT_HOME=#{node[:openjdk][:jtreg][:dir]}
+#    export PRODUCT_HOME=#{node[:openjdk][:product_home]}
+#  EOS
+#  mode 0755
+#end
