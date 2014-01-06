@@ -5,15 +5,33 @@ In current state recipie is immature and work is done to bring it to more stable
 
 Requirements
 ============
-This cookbook uses "Mercurial" cookbook from opscode community to support mercurial feature in chef and is used to pull / clone data from mercurical repository.
-
-Also in order to build OpenJDK from source code, it is required to have JDK 7 installed and enviornment variable need to be set.
-
-Attributes
-==========
-Defines directory structure and link to source code.
+- Installed VirtualBox (https://www.virtualbox.org/) - The build was done with version 4.2.8 
+- Installed Vagrant (http://docs.vagrantup.com/v2/installation/index.html) -
 
 Usage
 =====
-Register you client node to chef-server and run chef-client command.
+Start up ubuntu with vagrant using:
+``'vagrant up'``
+
+Vagrant is running chef cookbooks recipies to perform following tasks : 
+
+- perform system update and upgrade (sudo apt-get update)
+- download all the necessary packages and modules to be able to house OpenJDK sources 
+- download and configure OpenJDK sources
+- build the OpenJDK sources (done as part openjdk-chef-build recipe )
+- download and build JTReg sources 
+- optional script to run JTReg tests 
+
+
+Note
+====
+Currently Vagrant is using two recipes: 
+- "openjdk-build" - the original conntent of this repository
+- "apt" - git submodule to perform system updates    
+``'git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt'``
+
+
+Additional resources
+====================
+Ready to use vagrant boxes: http://www.vagrantbox.es/
 
