@@ -102,9 +102,22 @@ Vagrant is running chef cookbooks recipies to perform following tasks :
 
 TODO
 ====
-The jtreg recipe should not download http://www.java.net/download/openjdk/jtreg/promoted/4.1/b05/jtreg-4.1-bin-b05_29_nov_2012.zip
+- The jtreg recipe should not download http://www.java.net/download/openjdk/jtreg/promoted/4.1/b05/jtreg-4.1-bin-b05_29_nov_2012.zip
 anymore but instead from https://adopt-openjdk.ci.cloudbees.com/job/jtreg/lastSuccessfulBuild/artifact/
 and pickup the latest file gz.tar file and do the rest of the untar-ring, setting up, installing.
+
+- Errors when running ```make test``` from CLI, hence the below need to be set manually or via recipe:
+    
+    export SOURCE_CODE=$HOME/sources
+    export JTREG_INSTALL=$HOME/jtreg
+    export JT_HOME=$JTREG_INSTALL
+    export PRODUCT_HOME=$SOURCE_CODE/jdk8_tl/build/linux-x86_64-normal-server-release/images/j2sdk-image/
+    export JPRT_JTREG_HOME=${JT_HOME}
+    export JPRT_JAVA_HOME=${PRODUCT_HOME}
+    export JTREG_TIMEOUT_FACTOR=5
+    export CONCURRENCY=auto
+    
+    PRODUCT_HOME will need some handy regex or sed work!
 
 Note
 ====
