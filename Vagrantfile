@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
      vb.customize ["modifyvm", :id, "--memory", "4096"]
-  #   v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
    end
   #
   # View the documentation for the provider you're using for more
@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
   #   chef.roles_path = "../my-recipes/roles"
   #   chef.data_bags_path = "../my-recipes/data_bags"
      chef.add_recipe     "apt"
-      chef.add_recipe "openjdk-chef-build"
+      chef.add_recipe "openjdk-build"
       chef.arguments = '-l debug'
   #   chef.add_role "web"
   #
