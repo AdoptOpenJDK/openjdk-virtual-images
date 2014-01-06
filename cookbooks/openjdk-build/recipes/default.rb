@@ -16,7 +16,7 @@
 #
 
 # instaling dependancy packages
-package = %w{unzip zip libX11-dev libxext-dev libxrender-dev libxtst-dev libfreetype6-dev libcups2-dev libasound2-dev ccache g++-4.6-multilib}
+package = %w{unzip zip mercurial openjdk-7-jdk  build-essential libX11-dev libxext-dev libxrender-dev libxtst-dev libxt-dev libfreetype6-dev libcups2-dev libasound2-dev ccache}
 
 package.each do |pkg|
 	r = package pkg do
@@ -47,17 +47,12 @@ remote_file node[:openjdk][:jtreg][:file] do
 	action :create_if_missing
 end
 
-mercurial node[:openjdk][:forest]  do
-	repository node[:openjdk][:forest_url]
-	mode "0755"
-	action :sync
+execute "get_sources_from_mercurial_jdk8tl" do
+	user node[:owner]
+	cwd node[:openjdk][:source_tl]
+	command "hg clone http://hg.openjdk.java.net/jdk8/tl #{node[:openjdk][:source]}/#{node[:openjdk][:repo]}"
 end
 
-mercurial node[:openjdk][:source_tl] do 
-	repository node[:openjdk][:source_url]
-	mode "0755"
-	action :sync	
-end
 
 file node[:openjdk][:hgrc] do 
 	content <<-EOS
