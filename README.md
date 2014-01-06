@@ -42,13 +42,13 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
 
  5) Check contents of the cookbooks folders and subfolders, both apt and openjdk-build should be populated with files.
 
- 6) In case the cookbooks/apt folder is empty then do the below:
+ 6) In case the cookbooks/apt folder is empty then do the below from within the openjdk-chef-build folder:
 
     rm -fr cookbooks/apt
     git rm --cached cookbooks/apt
     git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt
 
- 7) Bring up the box by running the below command:
+ 7) Bring up the box (first time) by running the below command, which should create and install necessary components:
     
     vagrant up	
     
