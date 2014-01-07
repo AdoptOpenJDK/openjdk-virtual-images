@@ -1,8 +1,10 @@
 Description
 ===========
-OpenJDK cookbook is intended to assist in creating a Ubuntu VM and building OpenJDK from source code. Currently this chef recipe support ubuntu 12.04 only.
+OpenJDK cookbook is intended to assist in creating a VM box for building OpenJDK from source code. Currently this chef recipe supports Ubuntu 12.04 only.
 
 More work needs to be done to bring to provide support to muliple OS. Please feel free to repot for errors/bugs, suggetion/improvements and will try to improve this recipe.
+
+Instructions below are only available for Ubuntu but such a box can be built on any OS that support the below programs and instructions.
 
 Requirements
 ============
@@ -136,4 +138,3 @@ Currently Vagrant is using two recipes:
 Additional resources
 ====================
 Ready to use vagrant boxes: http://www.vagrantbox.es/
-
