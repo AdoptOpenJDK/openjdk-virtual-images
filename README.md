@@ -6,9 +6,9 @@ Virtual Images and the infrastructure that builds them for the Adopt OpenJDK pro
 See the [Wiki](https://github.com/AdoptOpenJDK/openjdk-virtual-images/wiki) for Documentation!
 
 # Current Progress
-Progress to date is that we have a valid Veewee definition set which can create a base box, which in turn can be exported to a virtual image. In our case we're exporting to OVF format for VirtualBox/Vagrant compatibility.
+Progress to date is that we have a valid packer.io template set which can create a VirtualBox image for openjdk development. As we want folks to be able to control this image through Vagrant, we need to add a post-processing step to create the Vagrant base box.
+
+After that we'll provide Vagrantfiles for folks with different host machine capabilities, merge in the great Chef work done by Andrejz & Co
 
 The documentation in the wiki allows you to follow to that point.
-
-I've held off committing various Vagrant/Base Box config as it looks like we'll have to swap to using packer.io.
 
