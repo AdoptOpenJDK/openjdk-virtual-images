@@ -54,7 +54,8 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
     
     vagrant up	
     
-    And you should see the below, give it some time (a hour or so)....
+   And you should see the below, give it some time (a hour or so)....
+   
     ###################################################
     Bringing machine 'default' up with 'virtualbox' provider...
     .
