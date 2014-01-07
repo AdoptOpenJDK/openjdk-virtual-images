@@ -98,8 +98,9 @@ Vagrant is running chef cookbooks recipies to perform following tasks :
 - perform system update and upgrade (sudo apt-get update)
 - download all the necessary packages and modules to be able to house OpenJDK sources 
 - download and configure OpenJDK sources
-- build the OpenJDK sources (done as part openjdk-chef-build recipe )
-- download and build JTReg sources 
+- build the OpenJDK sources (done as part openjdk-chef-build recipe)
+- download JTReg binaries
+- setting the environment variables
 - optional script to run JTReg tests 
 
 
