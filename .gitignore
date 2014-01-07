@@ -1,2 +1,5 @@
-veewee/iso
+veewee/iso/
+veewee/.vagrant/
+packer/openjdk-development/output-virtualbox-iso/
+packer/openjdk-development/packer_cache/
 Vagrant/openjdk-development.box
