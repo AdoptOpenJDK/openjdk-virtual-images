@@ -4,7 +4,7 @@ OpenJDK cookbook is intended to assist in creating a VM box for building OpenJDK
 
 More work needs to be done to bring to provide support to muliple OS. Please feel free to repot for errors/bugs, suggetion/improvements and will try to improve this recipe.
 
-Instructions below are only available for Ubuntu but such a box can be built on any OS that support the below programs and instructions.
+Instructions below are only available for Linux at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
 Requirements
 ============
