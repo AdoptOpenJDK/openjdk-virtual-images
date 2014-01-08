@@ -35,6 +35,7 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=us keyboard-configuration/variant=us console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
       ],
+      "headless": true,
       "boot_wait": "4s",
       "disk_size": 65536,
       "guest_os_type": "Ubuntu_64",
@@ -92,6 +93,13 @@
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       }
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "only": ["virtualbox-iso"],
+      "keep_input_artifact": true
     }
   ]
 }
