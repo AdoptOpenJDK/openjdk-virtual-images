@@ -89,6 +89,11 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
     vagrant destroy
     vagrant up
 
+12) Login and password details
+login: root
+password: vagrant
+
+
 Once the box is ready to use in future you can start up the Ubuntu VM with vagrant using:
 
 ``'vagrant up'``
