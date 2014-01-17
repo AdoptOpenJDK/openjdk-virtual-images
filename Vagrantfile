@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
   #   chef.cookbooks_path = "../my-recipes/cookbooks"
   #   chef.roles_path = "../my-recipes/roles"
   #   chef.data_bags_path = "../my-recipes/data_bags"
-     chef.add_recipe     "apt"
+      chef.add_recipe     "apt"
       chef.add_recipe "openjdk-build"
       chef.arguments = '-l debug'
   #   chef.add_role "web"
