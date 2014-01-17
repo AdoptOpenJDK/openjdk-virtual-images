@@ -75,6 +75,8 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
  8) Now you can ssh to the VM by running:
 
     vagrant ssh
+    or
+    vagrant ssh -p -- -l openjdk
 
  9) Update the VM by running the below command:
 
@@ -92,6 +94,9 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
 12) Login and password details
 login: root
 password: vagrant
+
+login: openjdk
+password: openjdk
 
 
 Once the box is ready to use in future you can start up the Ubuntu VM with vagrant using:

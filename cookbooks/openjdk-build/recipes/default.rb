@@ -22,10 +22,25 @@ package.each do |pkg|
 	r = package pkg do
 		action [:install]
 	end
+end 
+
+group "openjdk" do
+  action :create
+  append true
+end
+
+user "openjdk" do
+ comment "Openjdk User"
+ uid 1005
+ gid "openjdk"
+ home "/home/openjdk"
+ shell "/bin/bash"
+ password "$1$YAhmdiQ0$Th4Yolc3VTXnVfrIMRNGr."
 end
 
 # code to create openjdk directory TODO
-openjdk_dirs = %w{node[:openjdk][:dir]
+openjdk_dirs = %w{ node[:openjdk][:home]
+		  node[:openjdk][:dir]
 		  node[:openjdk][:forest] 
 		  node[:openjdk][:source] 
 		  node[:openjdk][:source_tl]
@@ -33,9 +48,10 @@ openjdk_dirs = %w{node[:openjdk][:dir]
 
 openjdk_dirs.each do |dir|
    directory eval("#{dir}") do      
-      mode "0557"
-      owner node[:owner]
-      group node[:owner]
+	  # had to temp change the mode to 755 due to problem with permissions of hg clone
+      mode "0755"
+      owner node[:user]
+      group node[:user]
       action :create
    end
 end
@@ -48,9 +64,9 @@ remote_file node[:openjdk][:jtreg][:file] do
 end
 
 execute "get_sources_from_mercurial_jdk8tl" do
-	user node[:owner]
+	user node[:user]
 	cwd node[:openjdk][:source_tl]
-	command "hg clone http://hg.openjdk.java.net/jdk8/tl #{node[:openjdk][:source]}/#{node[:openjdk][:repo]}"
+	command "hg clone #{node[:openjdk][:source_url]} #{node[:openjdk][:source]}/#{node[:openjdk][:repo]}"
 end
 
 
@@ -80,25 +96,25 @@ end
 #end
 
 execute "get_source" do
-	user node[:owner]
+	user node[:user]
 	cwd node[:openjdk][:source_tl]
 	command "sh #{node[:openjdk][:get_source]}"
 end
 
 execute "auto_configure" do
-	user node[:owner]
+	user node[:user]
 	cwd node[:openjdk][:source_tl]
 	command "bash configure"
 end
 
 execute "configure_jtreg" do
-	user node[:owner]
+	user node[:user]
 	cwd node[:openjdk][:dir]
 	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
 end
 
 execute "build_openjdk_images" do 
-	user node[:owner]
+	user node[:user]
 	cwd node[:openjdk][:source_tl]
 	command "make clean images"
 end
