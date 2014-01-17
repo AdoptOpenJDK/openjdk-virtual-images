@@ -24,8 +24,18 @@ package.each do |pkg|
 	end
 end 
 
+user "openjdk" do
+ comment "Deploy User"
+ uid 1005
+ gid "openjdk"
+ home "/home/openjdk"
+ shell "/bin/bash"
+ password "$1$YAhmdiQ0$Th4Yolc3VTXnVfrIMRNGr."
+end
+
 # code to create openjdk directory TODO
-openjdk_dirs = %w{node[:openjdk][:dir]
+openjdk_dirs = %w{ node[:openjdk][:home]
+		  node[:openjdk][:dir]
 		  node[:openjdk][:forest] 
 		  node[:openjdk][:source] 
 		  node[:openjdk][:source_tl]

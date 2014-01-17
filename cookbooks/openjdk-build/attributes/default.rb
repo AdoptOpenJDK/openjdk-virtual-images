@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 # constants for building OpenJdk.
-default[:user] = "vagrant"
+default[:user] = "openjdk"
 default[:owner] = "root"
 default[:machine][:arch] = kernel['machine']
 default[:openjdk][:repo] = "jdk8_tl"
