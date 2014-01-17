@@ -24,8 +24,13 @@ package.each do |pkg|
 	end
 end 
 
+group "openjdk" do
+  action :create
+  append true
+end
+
 user "openjdk" do
- comment "Deploy User"
+ comment "Openjdk User"
  uid 1005
  gid "openjdk"
  home "/home/openjdk"
