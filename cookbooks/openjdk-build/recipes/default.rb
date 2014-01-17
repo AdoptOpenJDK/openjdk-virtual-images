@@ -110,7 +110,7 @@ end
 execute "configure_jtreg" do
 	user node[:user]
 	cwd node[:openjdk][:dir]
-	command "unzip -u #{node[:openjdk][:jtreg][:file]}"
+	command "tar -zxvf #{node[:openjdk][:jtreg][:file]}"
 end
 
 execute "build_openjdk_images" do 
