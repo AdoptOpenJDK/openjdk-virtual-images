@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://drive.google.com/file/d/0B-gb3YLxi4iWeGVXUThSbFhhV3M/edit?usp=sharing"
+  config.vm.box_url = "https://github.com/AdoptOpenJDK/openjdk-virtual-images/releases/download/0.0.1/packer_virtualbox-iso_virtualbox.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
