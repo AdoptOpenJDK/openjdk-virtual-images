@@ -11,7 +11,7 @@ Requirements
 ============
 - Installed VirtualBox (https://www.virtualbox.org/) - The build was done with version 4.2.8 
 - Installed Vagrant (http://docs.vagrantup.com/v2/installation/index.html)
-- These instructions expect a 64-bit CPU and 64-bit OS
+- <b>These instructions expect a 64-bit CPU and 64-bit OS for a successful build.</b>
 
 Usage
 =====
