@@ -6,10 +6,12 @@ More work needs to be done to bring to provide support to muliple OS. Please fee
 
 Instructions below are only available for Linux at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
+
 Requirements
 ============
 - Installed VirtualBox (https://www.virtualbox.org/) - The build was done with version 4.2.8 
-- Installed Vagrant (http://docs.vagrantup.com/v2/installation/index.html) -
+- Installed Vagrant (http://docs.vagrantup.com/v2/installation/index.html)
+- These instructions expect a 64-bit CPU and 64-bit OS
 
 Usage
 =====
