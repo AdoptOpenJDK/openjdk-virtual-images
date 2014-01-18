@@ -9,7 +9,6 @@
         "scripts/vagrant.sh",
         "scripts/ruby.sh",
         "scripts/chef.sh",
-        "scripts/puppet.sh",
         "scripts/vbox.sh",
         "scripts/cleanup.sh"
       ],
