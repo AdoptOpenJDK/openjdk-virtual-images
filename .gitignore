@@ -1,6 +1,5 @@
 wiki/
-veewee/iso/
-veewee/.vagrant/
+**/.vagrant/
 packer/openjdk-development/packer_virtualbox-iso_virtualbox.box
 packer/openjdk-development/output-virtualbox-iso/
 packer/openjdk-development/packer_cache/
