@@ -1,8 +1,8 @@
 Description
 ===========
-OpenJDK cookbook is intended to assist in creating a VM box for building OpenJDK from source code. Currently this chef recipe supports Ubuntu 12.04 only.
+OpenJDK cookbook is intended to assist in creating a VM box for building OpenJDK from source code. Currently this chef recipe supports Ubuntu 12.04 only (Guest OS).
 
-More work needs to be done to bring to provide support to muliple OS. Please feel free to repot for errors/bugs, suggetion/improvements and will try to improve this recipe.
+More work needs to be done to provide support to muliple OS. Please feel free to repot for errors/bugs, suggetion/improvements and will try to improve this recipe.
 
 Instructions below are only available for Linux and MacOS at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
