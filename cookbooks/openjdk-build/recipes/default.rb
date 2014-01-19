@@ -46,8 +46,7 @@ end
 openjdk_dirs = %w{ node[:openjdk][:home]
 		  node[:openjdk][:dir]
 		  node[:openjdk][:forest] 
-		  node[:openjdk][:source] 
-		  node[:openjdk][:source_tl]
+		  node[:openjdk][:workspace] 
 		  node[:openjdk][:jtreg][:dir]}
 
 openjdk_dirs.each do |dir|
@@ -69,8 +68,10 @@ end
 
 execute "get_sources_from_mercurial_jdk8tl" do
 	user node[:user]
-	cwd node[:openjdk][:source_tl]
-	command "hg clone #{node[:openjdk][:source_url]} #{node[:openjdk][:source]}/#{node[:openjdk][:repo]}"
+	cwd node[:openjdk][:workspace]
+	command "hg clone #{node[:openjdk][:source_url]} #{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
+	creates "#{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
+
 end
 
 
@@ -85,16 +86,16 @@ end
 #execute "build_and_configure_openjdk" do
 #       user node[:owner]
 ## get openjdk source
-#	cwd node[:openjdk][:source]
+#	cwd node[:openjdk][:workspace]
 #       command "sh #{node[:openjdk][:get_source]}"
 ## configure node for openjdk 
-#	cwd node[:openjdk][:source]
+#	cwd node[:openjdk][:workspace]
 #	command "bash configure"
 ## configure jtreg
 #	cwd node[:openjdk][:jtreg][:dir]
 #        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
 ## make openjdk image
-#	cwd node[:openjdk][:source]
+#	cwd node[:openjdk][:workspace]
 #        command "make clean images"
 
 #end
@@ -128,7 +129,7 @@ bash "set_jtreg_export_variables" do
   code <<-EOS
     export JT_HOME=#{node[:openjdk][:jtreg][:dir]}
     export PRODUCT_HOME=#{node[:openjdk][:product_home]}
-    export SOURCE_CODE=$HOME/source
+    export SOURCE_CODE=$HOME/workspace
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
     export JT_HOME=$JTREG_INSTALL
