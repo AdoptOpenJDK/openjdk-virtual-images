@@ -16,9 +16,9 @@ Requirements
 Usage
 =====
 
-### Linux
+Follow the below instructions in order to able spin off an VM running Ubuntu (Guest OS) with OpenJDK sources on it, running on the below Host OS.
 
-Follow the below instructions in order to able to use this repo (the cookbook & recipes in this repo) to build and update your OpenJDK VM running on Ubuntu using VirtualBox.
+### Linux
 
  1) Download Virtualbox 4.2.xx (this version is necessary for Vagrant to run correctly) from:
     
@@ -94,9 +94,6 @@ Follow the below instructions in order to able to use this repo (the cookbook & 
     vagrant up
 
 12) Login and password details
-login: root
-password: vagrant
-
 login: openjdk
 password: openjdk
 
@@ -104,6 +101,11 @@ password: openjdk
 Once the box is ready to use in future you can start up the Ubuntu VM with vagrant using:
 
 ``'vagrant up'``
+
+In case a process has been abruptly terminated or continuing from a previously unfinished task run the below:
+
+``'vagrant provision'``
+
 
 Vagrant is running chef cookbooks recipies to perform following tasks : 
 
