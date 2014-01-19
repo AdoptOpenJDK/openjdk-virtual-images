@@ -43,7 +43,10 @@ Vagrant.configure("2") do |config|
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
      vb.customize ["modifyvm", :id, "--memory", "4096"]
-     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+     vb.customize ["modifyvm", :id, "--cpus", "1"]   
+  #   # Changing cpu value to more then one will increase the build time, 
+  #   # but first check how many CPU you have by running: nproc
+     vb.customize ["modifyvm", :id, "--ioapic", "on"]
    end
   #
   # View the documentation for the provider you're using for more

@@ -124,10 +124,18 @@ execute "build_openjdk_images" do
 	environment ({'HOME' => '/home/openjdk'})
 end
 
-file node[:openjdk][:export_path] do
-  content <<-EOS
+bash "set_jtreg_export_variables" do
+  code <<-EOS
     export JT_HOME=#{node[:openjdk][:jtreg][:dir]}
     export PRODUCT_HOME=#{node[:openjdk][:product_home]}
-  EOS
-  mode 0755
+    export SOURCE_CODE=$HOME/source
+	export JTREG_INSTALL=$HOME/jtreg
+	export JTREG_HOME=$JTREG_INSTALL
+	export JT_HOME=$JTREG_INSTALL
+	export PRODUCT_HOME=$SOURCE_CODE/jdk8_tl/build/linux-x86_64-normal-server-release/images/j2sdk-image/
+	export JPRT_JTREG_HOME=${JT_HOME}
+	export JPRT_JAVA_HOME=${PRODUCT_HOME}=
+	export JTREG_TIMEOUT_FACTOR=5
+	export CONCURRENCY=auto
+    EOS
 end
