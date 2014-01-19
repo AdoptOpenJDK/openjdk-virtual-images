@@ -4,7 +4,7 @@ OpenJDK cookbook is intended to assist in creating a VM box for building OpenJDK
 
 More work needs to be done to bring to provide support to muliple OS. Please feel free to repot for errors/bugs, suggetion/improvements and will try to improve this recipe.
 
-Instructions below are only available for Linux at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
+Instructions below are only available for Linux and MacOS at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
 
 Requirements
@@ -13,27 +13,30 @@ Requirements
 - Installed Vagrant (http://docs.vagrantup.com/v2/installation/index.html)
 - <b>These instructions expect a 64-bit CPU running a 64-bit OS for a successful build.</b>
 
+
+Known Issue on Mac OS
+=====================
+The below Vagrant file entry causes the vagrant startup process to fail under MacOS Snow Leopard and MacOS Lion:
+
+         vb.customize ["modifyvm", :id, "--memory", "4096"]
+         
+This issue is resolved by commenting out this line (Ruby commenting convention: #) and re-running:
+
+         vagrant up
+
+
 Usage
 =====
 
-Follow the below instructions in order to able spin off an VM running Ubuntu (Guest OS) with OpenJDK sources on it, running on the below Host OS.
+Follow the below instructions in order to able spin off an VM running Ubuntu (Guest OS) with OpenJDK sources on it, running on the below Host OSes.
 
-### Linux
+### Linux / MacOS
 
- 1) Download Virtualbox 4.2.xx (this version is necessary for Vagrant to run correctly) from:
-    
-    https://www.virtualbox.org/wiki/Download_Old_Builds_4_2
+ 1) Download least version of Virtualbox 4.3.xx (or higher) for your Host OS.
 
- 2) Install Vagrant using the below command:
-    
-    sudo apt-get install vagrant 
-    (this would replace your higher version of virtualbox with virtualbox 4.1)
+ 2) Download least version of Virtualbox 1.4.xx (or higher) for your Host OS.
 
-   in case you wish to not get into the above tangle, please download vagrant from
-
-    http://www.vagrantup.com/downloads.html (vagrant_1.4.2_x86_64.deb)
-
- 3) Download the repo from https://github.com/AdoptOpenJDK/openjdk-chef-build by running the below command:
+ 3) Finally clone the repo from https://github.com/AdoptOpenJDK/openjdk-chef-build:
 
     git clone https://github.com/AdoptOpenJDK/openjdk-chef-build
 
@@ -51,6 +54,12 @@ Follow the below instructions in order to able spin off an VM running Ubuntu (Gu
     rm -fr cookbooks/apt
     git rm --cached cookbooks/apt
     git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt
+    
+ If this still does not download the contents, do the below:
+ 
+    cd cookbooks
+    git clone git@github.com:opscode-cookbooks/apt.git
+    
 
  7) Bring up the box (first time) by running the below command, which should create and install necessary components:
     
@@ -102,7 +111,7 @@ Once the box is ready to use in future you can start up the Ubuntu VM with vagra
 
 ``'vagrant up'``
 
-In case a process has been abruptly terminated or continuing from a previously unfinished task run the below:
+In case a process has been abruptly terminated or wish to continuing a executing recipes on an active vagrant machine, do the below:
 
 ``'vagrant provision'``
 
@@ -120,9 +129,10 @@ Vagrant is running chef cookbooks recipies to perform following tasks :
 Note
 ====
 Currently Vagrant is using two recipes: 
-- "openjdk-build" - the original conntent of this repository
+- "openjdk-build" - the original content of this repository
 - "apt" - git submodule to perform system updates    
 ``'git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt'``
+- So far the above have been tested on Host OSes: Ubuntu 12.04, MacOS Lion, MacOS Snow Leopard and Mavericks.
 
 
 Additional resources
