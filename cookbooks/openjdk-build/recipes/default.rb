@@ -126,7 +126,6 @@ bash "set_jtreg_export_variables" do
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
     export JT_HOME=$JTREG_INSTALL
-    export PRODUCT_HOME=$SOURCE_CODE/jdk8_tl/build/linux-x86_64-normal-server-release/images/j2sdk-image/
     export JPRT_JTREG_HOME=${JT_HOME}
     export JPRT_JAVA_HOME=${PRODUCT_HOME}=
     export JTREG_TIMEOUT_FACTOR=5
