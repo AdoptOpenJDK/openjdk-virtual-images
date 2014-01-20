@@ -6,6 +6,10 @@ More work needs to be done to provide support to muliple OS. Please feel free to
 
 Instructions below are only available for Linux and MacOS at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
+WARNING
+=======
+<b>The below are under rapid change and so please talk to the adopt-openjdk mailing list (adopt-openjdk@googlegroups.com) first before going about with the below.</b>
+
 
 Requirements
 ============
