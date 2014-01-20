@@ -32,7 +32,7 @@ default[:openjdk][:get_source] = "#{node[:openjdk][:source_tl]}/get_source.sh"
 #download and configre jtreg
 default[:openjdk][:jtreg][:dir] = "#{node[:openjdk][:dir]}/jtreg"
 default[:openjdk][:jtreg][:file] = "#{node[:openjdk][:dir]}/jtreg.tar.gz" 
-default[:openjdk][:jtreg][:url] = "https://adopt-openjdk.ci.cloudbees.com/job/jtreg/lastSuccessfulBuild/artifact/jtreg-5.0.0-SNAPSHOT.tar.gz"
+default[:openjdk][:jtreg][:url] = "https://adopt-openjdk.ci.cloudbees.com/job/jtreg/lastSuccessfulBuild/artifact/jtreg-4.2.0-SNAPSHOT.tar.gz"
 default[:openjdk][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
 default[:openjdk][:product_home] = "#{node[:openjdk][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
 default[:openjdk][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
