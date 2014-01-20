@@ -34,7 +34,7 @@ Follow the below instructions in order to able spin off an VM running Ubuntu (Gu
 
  1) Download least version of Virtualbox 4.3.xx (or higher) for your Host OS.
 
- 2) Download least version of Virtualbox 1.4.xx (or higher) for your Host OS.
+ 2) Download least version of Vagrant 1.4.xx (or higher) for your Host OS.
 
  3) Finally clone the repo from https://github.com/AdoptOpenJDK/openjdk-chef-build:
 
@@ -130,7 +130,7 @@ Note
 ====
 Currently Vagrant is using two recipes: 
 - "openjdk-build" - the original content of this repository
-- "apt" - git submodule to perform system updates    
+- "apt" - git submodule to perform system updates
 ``'git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt'``
 - So far the above have been tested on Host OSes: Ubuntu 12.04, MacOS Lion, MacOS Snow Leopard and Mavericks.
 
