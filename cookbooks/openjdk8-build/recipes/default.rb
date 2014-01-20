@@ -75,13 +75,6 @@ execute "get_sources_from_mercurial_jdk8tl" do
 end
 
 
-file node[:openjdk][:hgrc] do 
-	content <<-EOS
-forest = #{node[:openjdk][:forest]}forest.py
-	EOS
-	mode "0755"
-end
-
 # code to run all commands in one block TODO
 #execute "build_and_configure_openjdk" do
 #       user node[:owner]
@@ -133,9 +126,8 @@ bash "set_jtreg_export_variables" do
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
     export JT_HOME=$JTREG_INSTALL
-    export PRODUCT_HOME=$SOURCE_CODE/jdk8_tl/build/linux-x86_64-normal-server-release/images/j2sdk-image/
     export JPRT_JTREG_HOME=${JT_HOME}
-    export JPRT_JAVA_HOME=${PRODUCT_HOME}=
+    export JPRT_JAVA_HOME=${PRODUCT_HOME}
     export JTREG_TIMEOUT_FACTOR=5
     export CONCURRENCY=auto
     EOS
