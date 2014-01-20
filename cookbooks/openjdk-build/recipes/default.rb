@@ -74,13 +74,6 @@ execute "get_sources_from_mercurial_jdk8tl" do
 end
 
 
-file node[:openjdk][:hgrc] do 
-	content <<-EOS
-forest = #{node[:openjdk][:forest]}forest.py
-	EOS
-	mode "0755"
-end
-
 # code to run all commands in one block TODO
 #execute "build_and_configure_openjdk" do
 #       user node[:owner]
