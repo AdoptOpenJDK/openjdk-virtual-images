@@ -67,6 +67,7 @@ Vagrant.configure("2") do |config|
   #   chef.data_bags_path = "../my-recipes/data_bags"
       chef.add_recipe "apt"
       chef.add_recipe "openjdk8-build"
+      chef.add_recipe "openjdk9-build"
       chef.arguments = '-l debug'
   #   chef.add_role "web"
   #
