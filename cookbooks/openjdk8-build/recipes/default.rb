@@ -95,9 +95,9 @@ execute "build_openjdk_images" do
 	user node[:user]
 	cwd node[:openjdk][:source_tl]
 	if ::File.exist?("#{node[:openjdk][:build_folder]}")
-	    command "make images"
+	   command "make images"
 	else
-		command "make clean images"
+	   command "make clean images"
 	end
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
