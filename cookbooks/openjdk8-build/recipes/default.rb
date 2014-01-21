@@ -91,22 +91,16 @@ execute "configure_jtreg" do
 	command "tar -zxvf #{node[:openjdk][:jtreg][:file]}"
 end
 
-if ::File.exist?("#{node[:openjdk][:build_folder]}")
-	execute "build_openjdk_images" do 
-		user node[:user]
-		cwd node[:openjdk][:source_tl]
-		command "make images"
-		environment ({'HOME' => '/home/openjdk'})
-		timeout 72000
-	end
-else
-	execute "build_openjdk_images" do 
-		user node[:user]
-		cwd node[:openjdk][:source_tl]
+execute "build_openjdk_images" do 
+	user node[:user]
+	cwd node[:openjdk][:source_tl]
+	if ::File.exist?("#{node[:openjdk][:build_folder]}")
+	    command "make images"
+	else
 		command "make clean images"
-		environment ({'HOME' => '/home/openjdk'})
-		timeout 72000
 	end
+	environment ({'HOME' => '/home/openjdk'})
+	timeout 72000
 end
 
 bash "set_jtreg_export_variables" do
