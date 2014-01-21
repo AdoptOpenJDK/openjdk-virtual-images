@@ -58,7 +58,7 @@ openjdk_dirs.each do |dir|
       action :create
    end
 end
-#
+
 remote_file node[:openjdk][:jtreg][:file] do
 	source node[:openjdk][:jtreg][:url]
 	checksum node[:openjdk][:jtreg][:checksum]
@@ -71,27 +71,7 @@ execute "get_sources_from_mercurial_jdk8tl" do
 	cwd node[:openjdk][:workspace]
 	command "hg clone #{node[:openjdk][:source_url]} #{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
 	creates "#{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
-
 end
-
-
-# code to run all commands in one block TODO
-#execute "build_and_configure_openjdk" do
-#       user node[:owner]
-## get openjdk source
-#	cwd node[:openjdk][:workspace]
-#       command "sh #{node[:openjdk][:get_source]}"
-## configure node for openjdk 
-#	cwd node[:openjdk][:workspace]
-#	command "bash configure"
-## configure jtreg
-#	cwd node[:openjdk][:jtreg][:dir]
-#        command "unzip -u #{node[:openjdk][:jtreg][:file]}"
-## make openjdk image
-#	cwd node[:openjdk][:workspace]
-#        command "make clean images"
-
-#end
 
 execute "get_source" do
 	user node[:user]
@@ -111,11 +91,22 @@ execute "configure_jtreg" do
 	command "tar -zxvf #{node[:openjdk][:jtreg][:file]}"
 end
 
-execute "build_openjdk_images" do 
-	user node[:user]
-	cwd node[:openjdk][:source_tl]
-	command "make clean images"
-	environment ({'HOME' => '/home/openjdk'})
+if ::File.exist?("#{node[:openjdk][:build_folder]}")
+	execute "build_openjdk_images" do 
+		user node[:user]
+		cwd node[:openjdk][:source_tl]
+		command "make images"
+		environment ({'HOME' => '/home/openjdk'})
+		timeout 72000
+	end
+else
+	execute "build_openjdk_images" do 
+		user node[:user]
+		cwd node[:openjdk][:source_tl]
+		command "make clean images"
+		environment ({'HOME' => '/home/openjdk'})
+		timeout 72000
+	end
 end
 
 bash "set_jtreg_export_variables" do

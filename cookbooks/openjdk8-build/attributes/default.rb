@@ -36,3 +36,4 @@ default[:openjdk][:jtreg][:url] = "https://adopt-openjdk.ci.cloudbees.com/job/jt
 default[:openjdk][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
 default[:openjdk][:product_home] = "#{node[:openjdk][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
 default[:openjdk][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
+default[:openjdk][:build_folder] = "#{node[:openjdk][:source_tl]}/build"
