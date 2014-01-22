@@ -43,11 +43,11 @@ user "openjdk" do
 end
 
 # code to create openjdk directory TODO
-openjdk_dirs = %w{ node[:openjdk][:home]
-		  node[:openjdk][:dir]
-		  node[:openjdk][:forest] 
-		  node[:openjdk][:workspace] 
-		  node[:openjdk][:jtreg][:dir]}
+openjdk_dirs = %w{ node[:openjdk9][:home]
+		  node[:openjdk9][:dir]
+		  node[:openjdk9][:forest] 
+		  node[:openjdk9][:workspace] 
+		  node[:openjdk9][:jtreg][:dir]}
 
 openjdk_dirs.each do |dir|
    directory eval("#{dir}") do      
@@ -59,78 +59,79 @@ openjdk_dirs.each do |dir|
    end
 end
 
-remote_file node[:openjdk][:jtreg][:file] do
-	source node[:openjdk][:jtreg][:url]
-	checksum node[:openjdk][:jtreg][:checksum]
+remote_file node[:openjdk9][:jtreg][:file] do
+	source node[:openjdk9][:jtreg][:url]
+	checksum node[:openjdk9][:jtreg][:checksum]
 	mode "0755"
 	action :create_if_missing
 end
 
-remote_file node[:openjdk][:jdk8ea][:file] do
-	source node[:openjdk][:jdk8ea][:url]
-	checksum node[:openjdk][:jdk8ea][:checksum]
+remote_file node[:openjdk9][:jdk8ea][:file] do
+	source node[:openjdk9][:jdk8ea][:url]
+	checksum node[:openjdk9][:jdk8ea][:checksum]
 	mode "0755"
 	action :create_if_missing
 end
 
 execute "get_sources_from_mercurial_jdk9" do
 	user node[:user]
-	cwd node[:openjdk][:workspace]
-	command "hg clone #{node[:openjdk][:source_url]} #{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
-	creates "#{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
+	cwd node[:openjdk9][:workspace]
+	command "hg clone #{node[:openjdk9][:source_url]} #{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}"
+	#creates "#{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}"
+	not_if { ::File.exist?("#{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}") } # only if the jdk9 folder does NOT exists
 end
 
 execute "get_source" do
 	user node[:user]
-	cwd node[:openjdk][:source_tl]
-	command "sh #{node[:openjdk][:get_source]}"
+	cwd node[:openjdk9][:source_tl]
+	command "sh #{node[:openjdk9][:get_source]}"
 end
 
 execute "install_jdk8ea" do
 	user node[:user]
-	cwd node[:openjdk][:home]
-	command "tar -zxvf #{node[:openjdk][:jdk8ea][:file]}"
+	cwd node[:openjdk9][:home]
+	command "tar -zxvf #{node[:openjdk9][:jdk8ea][:file]}"
 end
 
 execute "auto_configure" do
 	user node[:user]
-	cwd node[:openjdk][:source_tl]
-	command "bash configure --with-boot-jdk=#{node[:openjdk][:home]}/jdk1.8.0"
+	cwd node[:openjdk9][:source_tl]
+	command "bash configure --with-boot-jdk=#{node[:openjdk9][:home]}/jdk1.8.0"
 end
 
 execute "configure_jtreg" do
 	user node[:user]
-	cwd node[:openjdk][:dir]
-	command "tar -zxvf #{node[:openjdk][:jtreg][:file]}"
-	creates "#{node[:openjdk][:jtreg][:file]}"
+	cwd node[:openjdk9][:dir]
+	command "tar -zxvf #{node[:openjdk9][:jtreg][:file]}"
+	creates "#{node[:openjdk9][:jtreg][:file]}"
 end
 
 
 execute "build_openjdk_images" do 
 	user node[:user]
-	cwd node[:openjdk][:source_tl]
+	cwd node[:openjdk9][:source_tl]
 	command "make images"
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	only_if { ::File.exist?("#{node[:openjdk][:build_folder]}") } # only if the build folder exists
+	only_if { ::File.exist?("#{node[:openjdk9][:build_folder]}") } # only if the build folder exists
 end
 
 execute "build_openjdk_images" do 
 	user node[:user]
-	cwd node[:openjdk][:source_tl]
+	cwd node[:openjdk9][:source_tl]
 	command "make clean images"
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	not_if { ::File.exist?("#{node[:openjdk][:build_folder]}") } # only if the build folder does NOT exists
+	not_if { ::File.exist?("#{node[:openjdk9][:build_folder]}") } # only if the build folder does NOT exists
 end
 
 
 bash "set_jtreg_export_variables" do
   code <<-EOS
-    export JT_HOME=#{node[:openjdk][:jtreg][:dir]}
-    export PRODUCT_HOME=#{node[:openjdk][:product_home]}
+    export JT_HOME=#{node[:openjdk9][:jtreg][:dir]}
+    export PRODUCT_HOME=#{node[:openjdk9][:product_home]}
     export SOURCE_CODE=$HOME/workspace
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
