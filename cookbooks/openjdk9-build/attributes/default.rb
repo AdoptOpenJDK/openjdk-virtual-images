@@ -43,4 +43,4 @@ default[:openjdk9][:jdk8ea][:file] = "#{node[:openjdk9][:home]}/jdk-8-ea-b123.ta
 default[:openjdk9][:jdk8ea][:url] = "http://www.java.net/download/jdk8/archive/b123/binaries/jdk-8-ea-bin-b123-linux-x64-10_jan_2014.tar.gz"
 default[:openjdk9][:jdk8ea][:checksum] ="eeec93e01001e9cc651e3455030a1469"
 
-default[:openjdk9][:build_folder] = "#{node[:openjdk9][:source_tl]}/build"
+default[:openjdk9][:build_log_file] = "#{node[:openjdk9][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/build.log"

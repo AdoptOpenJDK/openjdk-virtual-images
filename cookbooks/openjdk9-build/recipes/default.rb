@@ -77,7 +77,6 @@ execute "get_sources_from_mercurial_jdk9" do
 	user node[:user]
 	cwd node[:openjdk9][:workspace]
 	command "hg clone #{node[:openjdk9][:source_url]} #{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}"
-	#creates "#{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}"
 	not_if { ::File.exist?("#{node[:openjdk9][:workspace]}/#{node[:openjdk9][:repo]}") } # only if the jdk9 folder does NOT exists
 end
 
@@ -114,7 +113,7 @@ execute "build_openjdk_clean_images" do
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	not_if { ::File.exist?("#{node[:openjdk9][:build_folder]}") } # only if the build folder does NOT exists
+	not_if { ::File.exist?("#{node[:openjdk9][:build_log_file]}") } # only if the build.log file does NOT exists
 end
 
 execute "build_openjdk_images" do 
@@ -124,7 +123,7 @@ execute "build_openjdk_images" do
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	only_if { ::File.exist?("#{node[:openjdk9][:build_folder]}") } # only if the build folder exists
+	only_if { ::File.exist?("#{node[:openjdk9][:build_log_file]}") } # only if the build.log file does exist
 end
 
 bash "set_jtreg_export_variables" do

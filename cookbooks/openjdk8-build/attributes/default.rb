@@ -37,4 +37,4 @@ default[:openjdk8][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
 default[:openjdk8][:product_home] = "#{node[:openjdk8][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
 default[:openjdk8][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
 
-default[:openjdk8][:build_folder] = "#{node[:openjdk8][:source_tl]}/build"
+default[:openjdk8][:build_log_file] = "#{node[:openjdk8][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/build.log"
