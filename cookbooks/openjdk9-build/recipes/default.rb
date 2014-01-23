@@ -117,7 +117,7 @@ execute "build_openjdk_images" do
 	only_if { ::File.exist?("#{node[:openjdk9][:build_folder]}") } # only if the build folder exists
 end
 
-execute "build_openjdk_images" do 
+execute "build_openjdk_clean_images" do 
 	user node[:user]
 	cwd node[:openjdk9][:source_tl]
 	command "make clean images"
