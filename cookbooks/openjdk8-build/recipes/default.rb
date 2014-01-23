@@ -92,16 +92,6 @@ execute "configure_jtreg" do
 	command "tar -zxvf #{node[:openjdk8][:jtreg][:file]}"
 end
 
-execute "build_openjdk_images" do 
-	user node[:user]
-	cwd node[:openjdk8][:source_tl]
-	command "make images"
-
-	environment ({'HOME' => '/home/openjdk'})
-	timeout 72000
-	only_if { ::File.exist?("#{node[:openjdk8][:build_folder]}") } # only if the build folder exists
-end
-
 execute "build_openjdk_clean_images" do 
 	user node[:user]
 	cwd node[:openjdk8][:source_tl]
@@ -110,6 +100,16 @@ execute "build_openjdk_clean_images" do
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
 	not_if { ::File.exist?("#{node[:openjdk8][:build_folder]}") } # only if the build folder does NOT exists
+end
+
+execute "build_openjdk_images" do 
+	user node[:user]
+	cwd node[:openjdk8][:source_tl]
+	command "make images"
+
+	environment ({'HOME' => '/home/openjdk'})
+	timeout 72000
+	only_if { ::File.exist?("#{node[:openjdk8][:build_folder]}") } # only if the build folder exists
 end
 
 bash "set_jtreg_export_variables" do
