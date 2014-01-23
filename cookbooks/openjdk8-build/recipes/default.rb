@@ -98,7 +98,8 @@ execute "build_openjdk_clean_images" do
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	not_if { ::File.exist?("#{node[:openjdk][:build_folder]}") } # only if the build folder does NOT exists
+
+	not_if { ::File.exists?("#{node[:openjdk][:build_log_file]}") } # only if the build.log file does NOT exists
 end
 
 execute "build_openjdk_images" do 
@@ -108,7 +109,8 @@ execute "build_openjdk_images" do
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	only_if { ::File.exist?("#{node[:openjdk][:build_folder]}") } # only if the build folder exists
+
+	only_if { ::File.exists?("#{node[:openjdk][:build_log_file]}") } # only if the build.log file exists
 end
 
 bash "set_jtreg_export_variables" do

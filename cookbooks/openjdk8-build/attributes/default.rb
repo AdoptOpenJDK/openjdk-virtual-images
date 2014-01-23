@@ -38,3 +38,4 @@ default[:openjdk][:product_home] = "#{node[:openjdk][:source_tl]}/build/linux-#{
 default[:openjdk][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
 
 default[:openjdk][:build_folder] = "#{node[:openjdk][:source_tl]}/build"
+default[:openjdk][:build_log_file] = "#{node[:openjdk][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/build.log"
