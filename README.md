@@ -24,6 +24,10 @@ The below Vagrant file entry causes the vagrant startup process to fail under Ma
 
          vb.customize ["modifyvm", :id, "--memory", "4096"]
          
+Couple more reasons for the above failing are:
+* your system does not have the necessary free memory (4GB) at the time of execution
+* your system does not have the physical memory (4GB) at the time of execution
+
 This issue is resolved by commenting out this line (Ruby commenting convention: #) and re-running:
 
          vagrant up
