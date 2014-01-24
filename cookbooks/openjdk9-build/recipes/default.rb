@@ -129,14 +129,19 @@ end
 bash "set_jtreg_export_variables" do
   code <<-EOS
     export JT_HOME=#{node[:openjdk9][:jtreg][:dir]}
-    export PRODUCT_HOME=#{node[:openjdk9][:product_home]}
+    export PRODUCT_HOME_JDK9=#{node[:openjdk9][:product_home]}
+    export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
     export SOURCE_CODE=$HOME/workspace
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
     export JT_HOME=$JTREG_INSTALL
     export JPRT_JTREG_HOME=${JT_HOME}
-    export JPRT_JAVA_HOME=${PRODUCT_HOME}=
+    export JPRT_JAVA_HOME=${PRODUCT_HOME}
     export JTREG_TIMEOUT_FACTOR=5
     export CONCURRENCY=auto
+
+    function switchToJDK8 {
+		export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
+	}
     EOS
 end

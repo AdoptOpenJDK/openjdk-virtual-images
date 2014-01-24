@@ -109,13 +109,14 @@ execute "build_openjdk_images" do
 
 	environment ({'HOME' => '/home/openjdk'})
 	timeout 72000
-	only_if { ::File.exist?("#{node[:openjdk8][:build_log_file}") } # only if the build.log file exists
+	only_if { ::File.exist?("#{node[:openjdk8][:build_log_file]}") } # only if the build.log file exists
 end
 
 bash "set_jtreg_export_variables" do
   code <<-EOS
     export JT_HOME=#{node[:openjdk8][:jtreg][:dir]}
-    export PRODUCT_HOME=#{node[:openjdk8][:product_home]}
+    export PRODUCT_HOME_JDK8=#{node[:openjdk8][:product_home]}
+    export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
     export SOURCE_CODE=$HOME/workspace
     export JTREG_INSTALL=$HOME/jtreg
     export JTREG_HOME=$JTREG_INSTALL
@@ -124,5 +125,9 @@ bash "set_jtreg_export_variables" do
     export JPRT_JAVA_HOME=${PRODUCT_HOME}
     export JTREG_TIMEOUT_FACTOR=5
     export CONCURRENCY=auto
+    
+    function switchToOpenJDK8 {
+		export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
+	}
     EOS
 end
