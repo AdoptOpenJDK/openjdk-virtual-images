@@ -112,22 +112,83 @@ execute "build_openjdk_images" do
 	only_if { ::File.exist?("#{node[:openjdk8][:build_log_file]}") } # only if the build.log file exists
 end
 
-bash "set_jtreg_export_variables" do
-  code <<-EOS
-    export JT_HOME=#{node[:openjdk8][:jtreg][:dir]}
-    export PRODUCT_HOME_JDK8=#{node[:openjdk8][:product_home]}
-    export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
-    export SOURCE_CODE=$HOME/workspace
-    export JTREG_INSTALL=$HOME/jtreg
-    export JTREG_HOME=$JTREG_INSTALL
-    export JT_HOME=$JTREG_INSTALL
-    export JPRT_JTREG_HOME=${JT_HOME}
-    export JPRT_JAVA_HOME=${PRODUCT_HOME}
-    export JTREG_TIMEOUT_FACTOR=5
-    export CONCURRENCY=auto
-    
-    function switchToOpenJDK8 {
-		export PRODUCT_HOME=${PRODUCT_HOME_JDK8}
-	}
-    EOS
+file "#{node[:openjdk8][:home]}/.bashrc" do
+  group node[:user]
+  user node[:user]
+  mode 00755
+  action :create
+  not_if do
+  	File.exists?("#{node[:openjdk8][:home]}/.bashrc")
+  end
+end
+
+ruby_block "include-bashrc" do
+  block do
+    file = Chef::Util::FileEdit.new("#{node[:openjdk8][:home]}/.bashrc")
+    file.insert_line_if_no_match(
+	    "export JT_HOME",
+	    "export JT_HOME=#{node[:openjdk8][:jtreg][:dir]}")
+    file.write_file
+	file.insert_line_if_no_match(
+		"export PRODUCT_HOME_JDK8",
+		"export PRODUCT_HOME_JDK8=#{node[:openjdk8][:product_home]}")
+	file.write_file
+	file.insert_line_if_no_match(
+	 	"export PRODUCT_HOME=",
+	 	"export PRODUCT_HOME=$PRODUCT_HOME_JDK8")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export SOURCE_CODE",
+	    "export SOURCE_CODE=#{node[:openjdk9][:workspace]}")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export JTREG_INSTALL",
+	    "export JTREG_INSTALL=$JT_HOME")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export JTREG_HOME",
+	    "export JTREG_HOME=$JTREG_INSTALL")
+	file.write_file
+	file.insert_line_if_no_match(	    
+	    "export JT_HOME",
+	    "export JT_HOME=$JTREG_INSTALL")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export JPRT_JTREG_HOME",
+	    "export JPRT_JTREG_HOME=$JT_HOME")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export JPRT_JAVA_HOME",
+	    "export JPRT_JAVA_HOME=$PRODUCT_HOME")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export JTREG_TIMEOUT_FACTOR",
+	    "export JTREG_TIMEOUT_FACTOR=5")
+	file.write_file
+	file.insert_line_if_no_match(
+	    "export CONCURRENCY",
+	    "export CONCURRENCY=auto")
+	file.write_file
+    file.insert_line_if_no_match(	    
+	    "function switchToJDK8",
+		"function switchToJDK8 {
+			export PRODUCT_HOME=$PRODUCT_HOME_JDK8
+		}")
+    file.write_file
+  end
+end
+
+bash "source_bashrc" do
+	user "root"
+
+	code <<-EOH
+		shopt -s expand_aliases && source #{node[:openjdk8][:home]}/.bashrc
+	EOH
+
+	environment({ 'USER' => node[:user],
+		          'HOME' => node[:home],
+		          'PROMPT_COMMAND' => '"source #{node[:openjdk8][:home]}/.bashrc"'
+		       })
+
+	only_if {File.exists?("#{node[:openjdk8][:home]}/.bashrc")}
 end
