@@ -6,6 +6,10 @@ More work needs to be done to provide support to muliple OS. Please feel free to
 
 Instructions below are only available for Linux and MacOS at the moment, but such a VM box can be built on any OS of choice that support the below programs and instructions.
 
+WARNING
+=======
+<b>The below are under rapid change and so please talk to the adopt-openjdk mailing list (adopt-openjdk@googlegroups.com) first before going about with the below.</b>
+
 
 Requirements
 ============
@@ -20,6 +24,10 @@ The below Vagrant file entry causes the vagrant startup process to fail under Ma
 
          vb.customize ["modifyvm", :id, "--memory", "4096"]
          
+Couple more reasons for the above failing are:
+* your system does not have the necessary free memory (4GB) at the time of execution
+* your system does not have the physical memory (4GB) at the time of execution
+
 This issue is resolved by commenting out this line (Ruby commenting convention: #) and re-running:
 
          vagrant up
@@ -103,9 +111,15 @@ Follow the below instructions in order to able spin off an VM running Ubuntu (Gu
     vagrant up
 
 12) Login and password details
-login: openjdk
-password: openjdk
 
+    login: openjdk
+    password: openjdk
+
+13) When in the box, to switch between OpenJDK8 and OpenJDK9, use the below command:
+
+    switchToJDK8 - to switch to OpenJDK8 environment variable settings
+    or 
+    switchToJDK9 - to switch to OpenJDK9 environment variable settings
 
 Once the box is ready to use in future you can start up the Ubuntu VM with vagrant using:
 
@@ -121,18 +135,20 @@ Vagrant is running chef cookbooks recipies to perform following tasks :
 - perform system update and upgrade (sudo apt-get update)
 - download all the necessary packages and modules to be able to house OpenJDK sources 
 - download and configure OpenJDK sources
-- build the OpenJDK sources (done as part openjdk-chef-build recipe)
+- build the OpenJDK sources (done as part openjdk-chef-build recipe, both OpenJDK8 and OpenJDK9)
 - download JTReg binaries
 - setting the environment variables
 - optional script to run JTReg tests 
+- facility to switch between OpenJDK8 and OpenJDK9
 
 Note
 ====
 Currently Vagrant is using two recipes: 
-- "openjdk-build" - the original content of this repository
+- "openjdk8-build" - OpenJDK8 cookbook
+- "openjdk9-build" - OpenJDK9 cookbook
 - "apt" - git submodule to perform system updates
 ``'git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt'``
-- So far the above have been tested on Host OSes: Ubuntu 12.04, MacOS Lion, MacOS Snow Leopard and Mavericks.
+- So far the above have been tested on Host OSes: Ubuntu 12.04, MacOS Lion, MacOS Snow Leopard and Mavericks
 
 
 Additional resources
