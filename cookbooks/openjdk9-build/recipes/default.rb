@@ -140,6 +140,14 @@ ruby_block "include-bashrc" do
   block do
     file = Chef::Util::FileEdit.new("#{node[:openjdk9][:home]}/.bashrc")
     file.insert_line_if_no_match(
+	    "export JAVA_HOME8",
+	    "export JAVA_HOME8=#{node[:openjdk9][:home]}/jdk1.8.0")
+    file.write_file
+   	file.insert_line_if_no_match(
+	    "export JAVA_HOME=",
+	    "export JAVA_HOME=$JAVA_HOME8")
+    file.write_file
+    file.insert_line_if_no_match(
 	    "export JT_HOME",
 	    "export JT_HOME=#{node[:openjdk9][:jtreg][:dir]}")
     file.write_file
@@ -186,6 +194,7 @@ ruby_block "include-bashrc" do
     file.insert_line_if_no_match(	    
 	    "function switchToJDK9",
 		"function switchToJDK9 {
+			export JAVA_HOME=$JAVA_HOME8
 			export PRODUCT_HOME=$PRODUCT_HOME_JDK9
 		}")    
     file.write_file
