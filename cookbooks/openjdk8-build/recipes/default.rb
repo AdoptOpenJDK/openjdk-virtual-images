@@ -126,12 +126,12 @@ ruby_block "include-bashrc" do
   block do
     file = Chef::Util::FileEdit.new("#{node[:openjdk8][:home]}/.bashrc")
     file.insert_line_if_no_match(
-	    "export JAVA_HOME7",
-	    "export JAVA_HOME7=/usr/bin/")
+	    "export JAVA7_HOME",
+	    "export JAVA7_HOME=/usr/bin/")
     file.write_file
     file.insert_line_if_no_match(
 	    "export JAVA_HOME=",
-	    "export JAVA_HOME=$JAVA_HOME7")
+	    "export JAVA_HOME=$JAVA7_HOME")
     file.write_file    
     file.insert_line_if_no_match(
 	    "export JT_HOME",
