@@ -13,8 +13,6 @@
       "type": "shell",
       "scripts": [
         "scripts/build_time.sh",
-        "scripts/sudo.sh",
-        "scripts/vagrant.sh",
         "scripts/vbox.sh",
         "scripts/cleanup.sh"
       ],
@@ -53,18 +51,8 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "512"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ]
+        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
+        [ "modifyvm", "{{.Name}}", "--cpus",   "1"   ]
       ]
     }
   ],
