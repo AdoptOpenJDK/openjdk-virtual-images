@@ -1,4 +1,4 @@
-# Author : Kaushal Singh <home.ksingh@gmail.com>
+# Author : Adopt OpenJDK adopt-openjdk@googlegroups.com
 # Cookbook Name:: Openjdk
 # Recipe:: default
 #

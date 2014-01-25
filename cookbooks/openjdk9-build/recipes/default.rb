@@ -1,4 +1,4 @@
-# Author : Kaushal Singh <home.ksingh@gmail.com>
+# Author : Adopt OpenJDK adopt-openjdk@googlegroups.com
 # Cookbook Name:: Openjdk
 # Recipe:: default	
 #
@@ -192,17 +192,17 @@ ruby_block "include-bashrc" do
   end
 end
 
-bash "source_bashrc" do
-	user "root"
+file "#{node[:openjdk9][:home]}/.bash_profile" do
+  group node[:user]
+  user node[:user]
+  mode 00755
+  action :create
 
-	code <<-EOH
-		shopt -s expand_aliases && source #{node[:openjdk9][:home]}/.bashrc
-	EOH
+  content "if [ -r #{node[:openjdk9][:home]}/.bashrc ] ; then
+  	. ~/.bashrc
+  fi"
 
-	environment({ 'USER' => node[:user],
-		          'HOME' => node[:home],
-		          'PROMPT_COMMAND' => '"source #{node[:openjdk9][:home]}/.bashrc"'
-		       })
-
-	only_if {File.exists?("#{node[:openjdk9][:home]}/.bashrc")}
+  not_if do
+  	File.exists?("#{node[:openjdk9][:home]}/.bash_profile")
+  end
 end
