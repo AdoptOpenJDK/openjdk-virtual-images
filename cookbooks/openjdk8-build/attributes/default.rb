@@ -1,4 +1,4 @@
-# Author : Kaushal Singh <home.ksingh@gmail.com>
+# Author : Adopt OpenJDK adopt-openjdk@googlegroups.com
 # Cookbook Name:: Openjdk
 # Recipe:: default
 #
@@ -18,24 +18,23 @@
 default[:user] = "openjdk"
 default[:owner] = "root"
 default[:machine][:arch] = kernel['machine']
-default[:openjdk][:repo] = "jdk8_tl"
-default[:openjdk][:home] = "/home/#{node[:user]}"
-default[:openjdk][:dir] = "#{node[:openjdk][:home]}"
-default[:openjdk][:forest] = "#{node[:openjdk][:dir]}/hgforest"
-default[:openjdk][:workspace] = "#{node[:openjdk][:dir]}/workspace"
-default[:openjdk][:source_tl] = "#{node[:openjdk][:workspace]}/#{node[:openjdk][:repo]}"
-default[:openjdk][:source_url] = "http://hg.openjdk.java.net/jdk8/tl"
-default[:openjdk][:forest_url] = "https://bitbucket.org/pmezard/hgforest-crew/overview/"
-default[:openjdk][:hgrc] = "#{node[:openjdk][:home]}/.hgrc"
-default[:openjdk][:get_source] = "#{node[:openjdk][:source_tl]}/get_source.sh"
+default[:openjdk8][:repo] = "jdk8_tl"
+default[:openjdk8][:home] = "/home/#{node[:user]}"
+default[:openjdk8][:dir] = "#{node[:openjdk8][:home]}"
+default[:openjdk8][:forest] = "#{node[:openjdk8][:dir]}/hgforest"
+default[:openjdk8][:workspace] = "#{node[:openjdk8][:dir]}/workspace"
+default[:openjdk8][:source_tl] = "#{node[:openjdk8][:workspace]}/#{node[:openjdk8][:repo]}"
+default[:openjdk8][:source_url] = "http://hg.openjdk.java.net/jdk8/tl"
+default[:openjdk8][:forest_url] = "https://bitbucket.org/pmezard/hgforest-crew/overview/"
+default[:openjdk8][:hgrc] = "#{node[:openjdk8][:home]}/.hgrc"
+default[:openjdk8][:get_source] = "#{node[:openjdk8][:source_tl]}/get_source.sh"
 
 #download and configure jtreg
-default[:openjdk][:jtreg][:dir] = "#{node[:openjdk][:dir]}/jtreg"
-default[:openjdk][:jtreg][:file] = "#{node[:openjdk][:dir]}/jtreg.tar.gz" 
-default[:openjdk][:jtreg][:url] = "https://adopt-openjdk.ci.cloudbees.com/job/jtreg/lastSuccessfulBuild/artifact/jtreg-4.2.0-SNAPSHOT.tar.gz"
-default[:openjdk][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
-default[:openjdk][:product_home] = "#{node[:openjdk][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
-default[:openjdk][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
+default[:openjdk8][:jtreg][:dir] = "#{node[:openjdk8][:dir]}/jtreg"
+default[:openjdk8][:jtreg][:file] = "#{node[:openjdk8][:dir]}/jtreg.tar.gz" 
+default[:openjdk8][:jtreg][:url] = "https://adopt-openjdk.ci.cloudbees.com/job/jtreg/lastSuccessfulBuild/artifact/jtreg-4.2.0-SNAPSHOT.tar.gz"
+default[:openjdk8][:jtreg][:checksum] ="2ccacd2550f8094f0dcd1601748add3e"
+default[:openjdk8][:product_home] = "#{node[:openjdk8][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
+default[:openjdk8][:export_path] = "/etc/profile.d/openjdk_build_path.sh"
 
-default[:openjdk][:build_folder] = "#{node[:openjdk][:source_tl]}/build"
-default[:openjdk][:build_log_file] = "#{node[:openjdk][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/build.log"
+default[:openjdk8][:build_log_file] = "#{node[:openjdk8][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/build.log"
