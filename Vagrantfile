@@ -87,4 +87,8 @@ Vagrant.configure("2") do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+  
+  config.vm.provider "virtualbox" do |v|
+    v.gui = true
+  end
 end
