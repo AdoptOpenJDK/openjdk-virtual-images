@@ -43,7 +43,15 @@ Vagrant.configure("2") do |config|
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
      vb.customize ["modifyvm", :id, "--memory", "4096"]
-     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+  #   # Changing cpu value to more then one will increase the build time, 
+  #   # but first check how many CPU you have by running: nproc
+     vb.customize ["modifyvm", :id, "--cpus", "1"]   
+  
+  #   # Activate I/O APIC (I/O Advanced Programmable Interrupt Controller)
+  #   # I/O APIC must be enabled when installing 64-bit guest operating systems. 
+  #   # It is required if you want to use more than one virtual CPU in a virtual machine.
+  #   # http://fedir.github.io/blog/web/2013/07/14/boost-vagrant/
+     vb.customize ["modifyvm", :id, "--ioapic", "on"]
    end
   #
   # View the documentation for the provider you're using for more
@@ -58,7 +66,8 @@ Vagrant.configure("2") do |config|
   #   chef.roles_path = "../my-recipes/roles"
   #   chef.data_bags_path = "../my-recipes/data_bags"
       chef.add_recipe "apt"
-      chef.add_recipe "openjdk-build"
+      chef.add_recipe "openjdk8-build"
+      chef.add_recipe "openjdk9-build"
       chef.arguments = '-l debug'
   #   chef.add_role "web"
   #
