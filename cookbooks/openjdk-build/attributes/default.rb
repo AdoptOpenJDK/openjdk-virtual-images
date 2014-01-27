@@ -32,7 +32,6 @@ default[:openjdk][:jdk8][:workspace] = "#{node[:home]}/workspace"
 default[:openjdk][:jdk8][:source_tl] = "#{node[:openjdk][:jdk8][:workspace]}/#{node[:openjdk][:jdk8][:repo]}"
 default[:openjdk][:jdk8][:source_url] = "http://hg.openjdk.java.net/jdk8/tl"
 default[:openjdk][:jdk8][:forest_url] = "https://bitbucket.org/pmezard/hgforest-crew/overview/"
-default[:openjdk][:jdk8][:hgrc] = "#{node[:home]}/.hgrc"
 default[:openjdk][:jdk8][:get_source] = "#{node[:openjdk][:jdk8][:source_tl]}/get_source.sh"
 
 default[:openjdk][:jdk8][:product_home] = "#{node[:openjdk][:jdk8][:source_tl]}/build/linux-#{node[:machine][:arch]}-normal-server-release/images/j2sdk-image/"
@@ -48,7 +47,6 @@ default[:openjdk][:jdk9][:workspace] = "#{node[:home]}/workspace9"
 default[:openjdk][:jdk9][:source_tl] = "#{node[:openjdk][:jdk9][:workspace]}/#{node[:openjdk][:jdk9][:repo]}"
 default[:openjdk][:jdk9][:source_url] = "http://hg.openjdk.java.net/jdk9/jdk9"
 default[:openjdk][:jdk9][:forest_url] = "https://bitbucket.org/pmezard/hgforest-crew/overview/"
-default[:openjdk][:jdk9][:hgrc] = "#{node[:openjdk][:jdk9][:home]}/.hgrc"
 default[:openjdk][:jdk9][:get_source] = "#{node[:openjdk][:jdk9][:source_tl]}/get_source.sh"
 
 
