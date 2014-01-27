@@ -143,9 +143,7 @@ Vagrant is running chef cookbooks recipies to perform following tasks :
 
 Note
 ====
-Currently Vagrant is using two recipes: 
-- "openjdk8-build" - OpenJDK8 cookbook
-- "openjdk9-build" - OpenJDK9 cookbook
+- "openjdk-build" - OpenJDK cookbook
 - "apt" - git submodule to perform system updates
 ``'git submodule add git@github.com:opscode-cookbooks/apt.git cookbooks/apt'``
 - So far the above have been tested on Host OSes: Ubuntu 12.04, MacOS Lion, MacOS Snow Leopard and Mavericks
