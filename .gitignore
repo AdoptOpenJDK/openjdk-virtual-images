@@ -1,3 +1,4 @@
+**.DS_Store
 wiki/
 **/.vagrant/
 packer/openjdk-development/packer_virtualbox-iso_virtualbox.box
