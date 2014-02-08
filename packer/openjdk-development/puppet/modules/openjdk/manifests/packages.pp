@@ -2,15 +2,28 @@ class openjdk::packages {
   include openjdk::packages::update
 
   $packages = [
-    "linux-headers-${::kernelrelease}",
     'build-essential',
-    'zlib1g-dev',
-    'libssl-dev',
-    'libreadline-gplv2-dev',
-    'libyaml-dev',
-    'vim',
+    'ccache',
     'dkms',
-    'nfs-common'
+    'libX11-dev',
+    'libasound2-dev',
+    'libcups2-dev',
+    'libfreetype6-dev',
+    'libreadline-gplv2-dev',
+    'libssl-dev',
+    'libxext-dev',
+    'libxrender-dev',
+    'libxt-dev',
+    'libxtst-dev',
+    'libyaml-dev',
+    "linux-headers-${::kernelrelease}",
+    'mercurial',
+    'nfs-common',
+    'openjdk-7-jdk',
+    'unzip',
+    'vim',
+    'zip',
+    'zlib1g-dev',
   ]
 
   package { $packages: ensure => latest }
