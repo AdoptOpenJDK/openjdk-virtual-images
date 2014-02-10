@@ -1,3 +1,0 @@
-[submodule "cookbooks/apt"]
-	path = cookbooks/apt
-	url = git@github.com:opscode-cookbooks/apt.git
