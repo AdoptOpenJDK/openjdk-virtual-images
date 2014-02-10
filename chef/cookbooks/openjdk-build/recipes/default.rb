@@ -15,15 +15,6 @@
 # limitations under the License.
 #
 
-# instaling dependancy packages
-package = %w{unzip zip mercurial openjdk-7-jdk build-essential libX11-dev libxext-dev libxrender-dev libxtst-dev libxt-dev libfreetype6-dev libcups2-dev libasound2-dev ccache}
-
-package.each do |pkg|
-	r = package pkg do
-		action [:install]
-	end
-end 
-
 user "openjdk" do
  comment "Openjdk User"
  uid 1005
