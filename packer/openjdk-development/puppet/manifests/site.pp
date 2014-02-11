@@ -4,4 +4,5 @@ node 'packer-virtualbox-iso' {
   include openjdk::chef
   include openjdk::vagrant
   include openjdk::sudo
+  include openjdk::eclipse
 }

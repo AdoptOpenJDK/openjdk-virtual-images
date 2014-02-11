@@ -24,6 +24,10 @@ class openjdk::packages {
     'vim',
     'zip',
     'zlib1g-dev',
+    'xorg',
+    'xdm',
+    'xfce4',
+    'xfce4-goodies'
   ]
 
   package { $packages: ensure => latest }

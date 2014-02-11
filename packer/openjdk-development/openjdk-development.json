@@ -1,13 +1,23 @@
 {
   "provisioners": [
     {
+      "type": "shell",
+      "only": ["virtualbox-iso"],
+      "inline": [
+        "echo 'vagrant' | sudo -S  chmod 666 /etc/hosts",
+        "echo '127.0.0.1  packer-virtualbox-iso.localdomain packer-virtualbox-iso localhost' | cat > /etc/hosts",
+        "echo 'vagrant' | sudo -S  chmod 644 /etc/hosts",
+        "echo 'vagrant' | sudo -S hostnamectl --static --transient set-hostname packer-virtualbox-iso.localdomain"
+      ]
+    },
+    {
       "type": "puppet-masterless",
       "manifest_file": "puppet/manifests/site.pp",
       "module_paths":  ["puppet/modules"],
       "facter" : {
         "fqdn" : "packer-virtualbox-iso"
       },
-      "execute_command": "echo 'vagrant' | sudo -S -E puppet apply --verbose --modulepath='{{.ModulePath}}' {{.ManifestFile}}"
+      "execute_command": "echo 'vagrant' | sudo -S -E puppet module install --modulepath='{{.ModulePath}}' smarchive-archive; echo 'vagrant' | sudo -S -E puppet apply --verbose --modulepath='{{.ModulePath}}' {{.ManifestFile}}"
     },
     {
       "type": "shell",
@@ -51,7 +61,8 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
       "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "32" ],
         [ "modifyvm", "{{.Name}}", "--cpus",   "1"   ]
       ]
     }
