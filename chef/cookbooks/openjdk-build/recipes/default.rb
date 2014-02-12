@@ -34,7 +34,6 @@ group "openjdk" do
   append true
 end
 
-
 remote_file node[:jtreg][:file] do
   source node[:jtreg][:url]
   checksum node[:jtreg][:checksum]
@@ -113,6 +112,7 @@ node[:openjdk].each do |index, jdk|
             user node[:user]
             cwd jdk[:source_tl]
             command "sh #{jdk[:get_source]}"
+            timeout 7200
     end
 
 
@@ -121,7 +121,6 @@ node[:openjdk].each do |index, jdk|
             cwd jdk[:source_tl]
             command "bash configure #{bootJdkArgs}"
     end
-
 
     execute "build_openjdk_clean_images" do 
             user node[:user]
@@ -142,7 +141,6 @@ node[:openjdk].each do |index, jdk|
     	timeout 72000
     	only_if { ::File.exist?("#{jdk[:build_log_file]}") } # only if the build.log file exists
     end
-
 
     ruby_block "include-bashrc" do
       block do
