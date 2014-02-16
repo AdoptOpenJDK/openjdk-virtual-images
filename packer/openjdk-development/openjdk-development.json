@@ -1,16 +1,6 @@
 {
   "provisioners": [
     {
-      "type": "shell",
-      "only": ["virtualbox-iso"],
-      "inline": [
-        "echo 'vagrant' | sudo -S  chmod 666 /etc/hosts",
-        "echo '127.0.0.1  packer-virtualbox-iso.localdomain packer-virtualbox-iso localhost' | cat > /etc/hosts",
-        "echo 'vagrant' | sudo -S  chmod 644 /etc/hosts",
-        "echo 'vagrant' | sudo -S hostnamectl --static --transient set-hostname packer-virtualbox-iso.localdomain"
-      ]
-    },
-    {
       "type": "puppet-masterless",
       "manifest_file": "puppet/manifests/site.pp",
       "module_paths":  ["puppet/modules"],

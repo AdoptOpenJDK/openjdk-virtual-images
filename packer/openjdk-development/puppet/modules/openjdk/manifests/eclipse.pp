@@ -5,7 +5,7 @@
 # == Parameters:
 #
 # == Actions:
-#   Install Eclipse Juno
+#   Install Eclipse Kepler
 #
 # == Requires:
 #   - Module['Archive']
